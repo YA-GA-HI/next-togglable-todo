@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Todo } from '../types';
 
 interface TodoListProps {
@@ -10,6 +10,9 @@ const [draggedTodo, setDraggedTodo] = useState<Todo | null>(null);
 const [dragOverTodo, setDragOverTodo] = useState<Todo | null>(null);
 const [updatedTodos, setUpdatedTodos] = useState<Todo[]>(todos);
 
+useEffect(() => {
+    setUpdatedTodos(todos);
+} , [todos])
 const handleDragStart = (e: React.DragEvent<HTMLDivElement>, todo: Todo) => {
     setDraggedTodo(todo);
 };

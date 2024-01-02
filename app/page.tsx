@@ -15,6 +15,7 @@ const Home: React.FC = () => {
       completedAt: null,
     };
     setTodos([...todos, newTodo]);
+    localStorage.setItem("todos", JSON.stringify(todos));
   };
 
   // CRUD operations and other functionality
