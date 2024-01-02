@@ -1,56 +1,38 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Todo } from '../types';
 
 interface TodoListProps {
 todos: Todo[];
+handleDragEnd: (result: any) => void;
 }
 
-const TodoList: React.FC<TodoListProps> = ({ todos }) => {
-const [draggedTodo, setDraggedTodo] = useState<Todo | null>(null);
-const [dragOverTodo, setDragOverTodo] = useState<Todo | null>(null);
-const [updatedTodos, setUpdatedTodos] = useState<Todo[]>(todos);
-
-useEffect(() => {
-    setUpdatedTodos(todos);
-} , [todos])
-const handleDragStart = (e: React.DragEvent<HTMLDivElement>, todo: Todo) => {
-    setDraggedTodo(todo);
+const TodoList: React.FC<TodoListProps> = ({ todos, handleDragEnd }) => {
+const handleDragStart = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    e.dataTransfer.setData('text/plain', index.toString());
 };
 
-const handleDragOver = (e: React.DragEvent<HTMLDivElement>, todo: Todo) => {
+const handleDragOver = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     e.preventDefault();
-    setDragOverTodo(todo);
 };
 
-const handleDragEnd = () => {
-    if (!draggedTodo || !dragOverTodo || draggedTodo === dragOverTodo) return;
-
-    const updatedTodoList = [...updatedTodos];
-    const draggedIndex = updatedTodoList.findIndex((todo) => todo === draggedTodo);
-    const dragOverIndex = updatedTodoList.findIndex((todo) => todo === dragOverTodo);
-
-    updatedTodoList.splice(draggedIndex, 1);
-    updatedTodoList.splice(dragOverIndex, 0, draggedTodo);
-
-    setUpdatedTodos(updatedTodoList);
-    setDraggedTodo(null);
-    setDragOverTodo(null);
+const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
+    const droppedIndex = parseInt(e.dataTransfer.getData('text/plain'));
+    handleDragEnd({ source: { index: droppedIndex }, destination: { index } });
 };
 
 return (
     <div>
-    {updatedTodos.map((todo, index) => (
+    {todos.map((todo, index) => (
         <div
         key={todo.id}
         draggable
-        onDragStart={(e) => handleDragStart(e, todo)}
-        onDragOver={(e) => handleDragOver(e, todo)}
-        onDragEnd={handleDragEnd}
+        onDragStart={(e) => handleDragStart(e, index)}
+        onDragOver={(e) => handleDragOver(e, index)}
+        onDrop={(e) => handleDrop(e, index)}
         style={{
             border: '1px solid #ccc',
             margin: '4px',
             padding: '8px',
-            backgroundColor: draggedTodo === todo ? '#f0f0f0' : 'white',
         }}
         >
         {todo.title}
