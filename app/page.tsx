@@ -9,10 +9,10 @@ const Home: React.FC = () => {
 
   const addTodo = (title: string) => {
     const newTodo: Todo = {
-      id: Math.random().toString(),
-      title,
+      id: Math.ceil(Math.random() * 100000).toString(),
+      title: title,
       createdAt: new Date(),
-      completed: false
+      completedAt: null,
     };
     setTodos([...todos, newTodo]);
   };
