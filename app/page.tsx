@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TodoList from '../components/TodoList';
 import AddTodoForm from '../components/AddTodoForm';
 import { Todo } from '../types';
-import { createTodo, readTodos } from '@/crud'; // Assuming CRUD functions are defined
+import { createTodo, readTodos, reorderTodos } from '@/crud'; // Assuming CRUD functions are defined
 
 const Home: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -30,6 +30,7 @@ const Home: React.FC = () => {
     const [reorderedItem] = updatedTodos.splice(result.source.index, 1);
     updatedTodos.splice(result.destination.index, 0, reorderedItem);
 
+    reorderTodos("hh",updatedTodos);
     setTodos(updatedTodos);
   };
 

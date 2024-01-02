@@ -16,6 +16,8 @@ export const createTodo = (title: string) => {
 
 
 
+
+
 export const readTodos = () => {
     const localeStorageData = localStorage.getItem("todos");
     let todos = localeStorageData ? JSON.parse(localeStorageData) : [];
@@ -39,3 +41,11 @@ export const deleteTodos = ( id: string ) => {
     localStorage.setItem("todos", JSON.stringify(todos));
     return true;
 };
+
+
+export const reorderTodos = (orderType: string , todos: Todo[]) => {
+    localStorage.setItem("order-type", orderType);
+    localStorage.setItem("todos", JSON.stringify(todos));
+    return true;
+};
+
