@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import TodoList from '../components/TodoList';
 import AddTodoForm from '../components/AddTodoForm';
@@ -10,7 +11,8 @@ const Home: React.FC = () => {
     const newTodo: Todo = {
       id: Math.random().toString(),
       title,
-      // Other todo properties like timestamps for sorting
+      createdAt: new Date(),
+      completed: false
     };
     setTodos([...todos, newTodo]);
   };
@@ -19,7 +21,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <h1>Advanced Todo App</h1>
+      <h1>Advanced Todo App</h1> 
       <AddTodoForm addTodo={addTodo} />
       <TodoList todos={todos} />
     </div>
