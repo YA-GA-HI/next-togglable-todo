@@ -35,7 +35,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className='w-screen'>
       <h1>Advanced Todo App</h1>
       {!todosLoaded ? (
         'Loading...'

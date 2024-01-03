@@ -1,5 +1,6 @@
 import React from 'react';
 import { Todo } from '../types';
+import TodoItem from './TodoItem';
 
 interface TodoListProps {
 todos: Todo[];
@@ -23,20 +24,33 @@ const handleDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
 return (
     <div>
     {todos.map((todo, index) => (
+        // <div
+        // key={todo.id}
+        // draggable
+        // onDragStart={(e) => handleDragStart(e, index)}
+        // onDragOver={(e) => handleDragOver(e, index)}
+        // onDrop={(e) => handleDrop(e, index)}
+        // style={{
+        //     border: '1px solid #ccc',
+        //     margin: '4px',
+        //     padding: '8px',
+        // }}
+        // >
+        // {todo.title}
+        // </div>
         <div
-        key={todo.id}
-        draggable
-        onDragStart={(e) => handleDragStart(e, index)}
-        onDragOver={(e) => handleDragOver(e, index)}
-        onDrop={(e) => handleDrop(e, index)}
-        style={{
-            border: '1px solid #ccc',
-            margin: '4px',
-            padding: '8px',
-        }}
+            className="w-full"
+            key={todo.id}
+            draggable
+            onDragStart={(e) => handleDragStart(e, index)}
+            onDragOver={(e) => handleDragOver(e, index)}
+            onDrop={(e) => handleDrop(e, index)}
         >
-        {todo.title}
-        </div>
+            <TodoItem
+            todo={todo}
+            />
+
+    </div>
     ))}
     </div>
 );
