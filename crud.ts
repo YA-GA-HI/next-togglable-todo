@@ -11,6 +11,8 @@ export const createTodo = (title: string) => {
     const todos = readTodos();
     todos.push(newTodo)
     localStorage.setItem("todos", JSON.stringify(todos));
+
+    console.log(JSON.parse(localStorage.getItem("todos")!))
     return newTodo;
 };
 
@@ -19,15 +21,46 @@ export const createTodo = (title: string) => {
 
 
 export const readTodos = () => {
-    const localeStorageData = localStorage.getItem("todos");
-    let todos = localeStorageData ? JSON.parse(localeStorageData) : [];
+    const localeStorageData = localStorage.getItem("todos") ?? "[]";
+    console.log(localeStorageData)
+    let todos : Todo[] =  JSON.parse(localeStorageData!);
+    // if(localeStorageData)
+    // {
+    //     try {
+    //         JSON.parse(localeStorageData!);
+    //     }
+    //     catch(e) {
+    //         console.log(e);
+    //     }
+    // }
     return todos;
 };
 
 
+export const completeOrInitiateTodo = ( id: string ) => {
+    const todos = readTodos();
+    for(let i =0; i<todos.length; i++)
+    {
+        const localTodo = todos[i];
+        if(localTodo.id == id)
+        {
+            if(localTodo.completedAt)
+            {
+                todos[i].completedAt = null;
+            }
+            else
+            {
+                todos[i].completedAt = new Date();
+            }
+        }
+    }
+
+    localStorage.setItem("todos", JSON.stringify(todos));
+    return todos;
+};
 
 
-export const deleteTodos = ( id: string ) => {
+export const deleteTodo = ( id: string ) => {
     const todos = readTodos();
     for(let i =0; i<todos.length; i++)
     {
@@ -39,7 +72,8 @@ export const deleteTodos = ( id: string ) => {
     }
 
     localStorage.setItem("todos", JSON.stringify(todos));
-    return true;
+    console.log(todos)
+    return todos;
 };
 
 

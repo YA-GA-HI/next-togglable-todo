@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TodoList from '../components/TodoList';
 import AddTodoForm from '../components/AddTodoForm';
 import { Todo } from '../types';
-import { createTodo, readTodos, reorderTodos } from '@/crud'; // Assuming CRUD functions are defined
+import { completeOrInitiateTodo, createTodo, readTodos, reorderTodos } from '@/crud'; // Assuming CRUD functions are defined
 
 const Home: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -20,6 +20,8 @@ const Home: React.FC = () => {
 
   const addTodo = (title: string) => {
     const newTodo = createTodo(title);
+    console.log("yeeh");
+    console.log(newTodo)
     setTodos([...todos, newTodo]);
   };
 
@@ -34,6 +36,13 @@ const Home: React.FC = () => {
     setTodos(updatedTodos);
   };
 
+  const completeTodo = (id : string) => {
+    const todos = completeOrInitiateTodo(id);
+    reorderTodos("hhh",todos);
+    console.log("deleted todo")
+    setTodos(todos);
+}
+
   return (
     <div className='w-screen'>
       <h1>Advanced Todo App</h1>
@@ -42,7 +51,10 @@ const Home: React.FC = () => {
       ) : (
         <>
           <AddTodoForm addTodo={addTodo} />
-          <TodoList todos={todos} handleDragEnd={handleDragEnd} />
+          <TodoList
+          completeTodo={completeTodo}
+
+          todos={todos} handleDragEnd={handleDragEnd} />
         </>
       )}
     </div>
