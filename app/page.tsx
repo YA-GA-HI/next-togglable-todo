@@ -45,18 +45,38 @@ const Home: React.FC = () => {
 
   return (
     <div className='w-screen'>
-      <h1>Advanced Todo App</h1>
-      {!todosLoaded ? (
-        'Loading...'
-      ) : (
-        <>
-          <AddTodoForm addTodo={addTodo} />
-          <TodoList
-          completeTodo={completeTodo}
 
-          todos={todos} handleDragEnd={handleDragEnd} />
-        </>
-      )}
+
+    <div className="flex flex-wrap p-2">
+      <div className="w-full lg:w-7/12">
+        <div className="lg:w-8/12 mx-auto lg:pt-6">
+          {!todosLoaded ? (
+            'Loading...'
+          ) : (
+            <>
+            <div className="flex">
+              <button className="bg-yellow-200 py-1 px-3 rounded-md me-2">Completed</button>
+              <button className="bg-yellow-200 py-1 px-3 rounded-md me-2">Completed</button>
+              <button className="bg-yellow-200 py-1 px-3 rounded-md me-2">Completed</button>
+            </div>
+              <p className='my-3'>Change Todos Order by draging and droping them</p>
+              <TodoList
+              completeTodo={completeTodo}
+
+              todos={todos} handleDragEnd={handleDragEnd} />
+            </>
+          )}
+
+        </div>
+      </div>
+      <div className="w-full lg:w-5/12">
+        <h1 className='mx-auto text-3xl my-4  text-center font-semibold'>Advanced Todo App</h1>
+        <div className="mx-auto w-fit">
+          <AddTodoForm addTodo={addTodo} />
+        </div>
+      </div>
+    </div>
+      
     </div>
   );
 };

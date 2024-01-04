@@ -9,7 +9,7 @@ completeTodo: MouseEventHandler<HTMLInputElement>;
 const TodoItem: React.FC<TodoItemProps> = ({ todo, completeTodo }) => {
 return (
     <div
-        className='lg:w-1/2 flex items-center 
+        className='flex items-center 
         rounded-md p-3 bg-violet-200
         mx-auto my-2'
         >
